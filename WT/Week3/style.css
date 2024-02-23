@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    position: relative; /* Add relative positioning */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.appointment {
+    background-color: #ffcc00;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin: 1px;
+    position: absolute;
+    display: table;
+    z-index: 22;
+    overflow: hidden; /* Add overflow to handle longer appointment descriptions */
+    white-space: nowrap; /* Prevent appointment text from wrapping */
+}

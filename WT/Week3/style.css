@@ -9,9 +9,9 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 12px;
     text-align: left;
-    position: relative; /* Add relative positioning */
+    position: relative; 
 }
 
 th {

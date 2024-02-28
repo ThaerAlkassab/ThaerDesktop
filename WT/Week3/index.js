@@ -58,8 +58,8 @@ function addAppointment() {
                 appointment.textContent = text + " (" + formatTime(hour) + ":" + formatTime(minute) + " - " + formatTime(endHour) + ":" + formatTime(endMinute) + ")";
 
                 // Calculate the height of the appointment
-                var height = (endHour - startHour) * 60 + (endMinute - startMinute); // in minutes
-                appointment.style.height = height * 2 + "px"; // assuming each hour is 2px height
+                var height = (endHour - startHour) * 30 + (endMinute - startMinute); // in minutes
+                appointment.style.height = height * 1.5 + "px"; // assuming each hour is 1px height
 
                 // Calculate the position within the table
                 var position = startCell.getBoundingClientRect().top + (startCell.offsetHeight / 60) * startMinute;
@@ -67,7 +67,6 @@ function addAppointment() {
 
                 // Adjusting width to fit within cell
                 var cellWidth = startCell.offsetWidth;
-                appointment.style.width = cellWidth - 10 + "px"; // Adjusting for padding and border
 
                 startCell.appendChild(appointment);
             }

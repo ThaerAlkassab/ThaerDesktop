@@ -1,14 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
+#include <time.h>
 
 int main(int argc, char *argv[]) {
     int rank, size;
+    int max0, min0, guss0;
     MPI_Status status;
+    max0 = 100;
+    min0 = 1;
+    guss0 = (rand() % max0) + min0;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
+    srand(time(NULL));
 
     if (size != 2) {
         if (rank == 0) {
@@ -18,8 +24,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (rank == 0) { // Process 0 chooses the number
-        int secretNumber = 73; // Change this to any number you want to be guessed
+    if (rank == 0) { 
+        int secretNumber = (rand() % 100) + 1;
         int guess;
         printf("R0: I've chosen a number between 1 and 100. Start guessing!\n");
 
@@ -30,18 +36,20 @@ int main(int argc, char *argv[]) {
                 printf("R0: Correct guess! You got it.\n");
             } else if (guess < secretNumber) {
                 printf("R0: Your guess is too small! Try again.\n");
+                min0 = guess + 1;
             } else {
                 printf("R0: Your guess is too large! Try again.\n");
+                max0 = guess - 1;
             }
         } while (guess != secretNumber);
-    } else { // Process 1 guesses the number
+    } else { 
         int secretNumber;
         int guess = -1;
 
         MPI_Sendrecv(&guess, 1, MPI_INT, 0, 0, &secretNumber, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
 
         do {
-            guess = (rand() % 100) + 1; // Random guess between 1 and 100
+            guess = guss0; 
             printf("R1: I am guessing %d.\n", guess);
             MPI_Sendrecv(&guess, 1, MPI_INT, 0, 0, &secretNumber, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
         } while (guess != secretNumber);

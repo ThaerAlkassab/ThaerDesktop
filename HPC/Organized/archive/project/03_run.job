@@ -1,0 +1,87 @@
+#!/bin/bash
+#SBATCH --job-name=project_mesure
+#SBATCH -n 1
+#SBATCH -c 32
+#SBATCH -o %x_%j.out
+#SBATCH -e %x_%j.err
+
+
+### strong mesure (same amount iteration, thread chnge) ###
+#initial file
+N=16384
+echo -n "" > 04_result_soft.txt
+
+#serial mesure
+echo -en "1\t" >> 04_result_soft.txt
+srun -c 12 ./01_bifurcation_s -2.50 4.0 0.005 $N $N*2 >> 04_result_soft.txt
+echo -en "\n" >> 04_result_soft.txt
+
+#OMP mesure
+for p in 1 2 4 8 16 32 64 128 256
+do
+    echo -en $p "\t" >> 04_result_soft.txt
+    OMP_NUM_THREADS=$p srun -c 12 ./01_bifurcation_p -2.50 4.0 0.005 $N $N*2 >> 04_result_soft.txt
+	echo -en "\n" >> 04_result_soft.txt
+done
+
+
+
+### soft mesure (different amount iteration, same threads) ###
+#initial file
+echo -n "" > 04_result_strong.txt
+
+#header
+echo -en "amount\tserial\t" >> 04_result_strong.txt
+for p in 1 2 4 8 16 32
+do
+	echo -en $p "\t" >> 04_result_strong.txt
+done
+echo -en "\n" >> 04_result_strong.txt
+
+#mesure
+for i in 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536
+do
+	echo -en $i "\t" >> 04_result_strong.txt
+	
+	srun -c 12 ./01_bifurcation_s -2.50 4.0 0.005 $i $i*2 >> 04_result_strong.txt
+	echo -en "\t" >> 04_result_strong.txt
+	
+	for p in 1 2 4 8 16 32
+	do
+		OMP_NUM_THREADS=$p srun -c 12 ./01_bifurcation_p -2.50 4.0 0.005 $i $i*2 >> 04_result_strong.txt
+		echo -en "\t" >> 04_result_strong.txt
+	done
+	echo -en "\n" >> 04_result_strong.txt
+done
+
+
+### soft mesure (different amount delta r, same threads) ###
+#initial file
+N=128
+echo -n "" > 04_result_strong_delta.txt
+
+#header
+echo -en "amount\tserial\t" >> 04_result_strong_delta.txt
+for p in 1 2 4 8 16 32
+do
+	echo -en $p "\t" >> 04_result_strong_delta.txt
+done
+echo -en "\n" >> 04_result_strong_delta.txt
+
+#mesure
+for i in 10 100 1000 10000
+do
+	T=$(echo "scale=9; 1 / $i" | bc)
+	
+	echo -en $T "\t" >> 04_result_strong_delta.txt
+	
+	srun -c 12 ./01_bifurcation_s -2.50 4.0 $T $N $N*2 >> 04_result_strong_delta.txt
+	echo -en "\t" >> 04_result_strong_delta.txt
+	
+	for p in 1 2 4 8 16 32
+	do
+		OMP_NUM_THREADS=$p srun -c 12 ./01_bifurcation_p -2.50 4.0 $T $N $N*2 >> 04_result_strong_delta.txt
+		echo -en "\t" >> 04_result_strong_delta.txt
+	done
+	echo -en "\n" >> 04_result_strong_delta.txt
+done

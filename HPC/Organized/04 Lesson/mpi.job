@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name=mpi
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --mem=1gb
+#SBATCH --time=00:05:00
+#SBATCH --output %x_%j.out
+#SBATCH --error %x_%j.err
+
+module purge                        #unload all module
+module add mpi/openmpi-x86_64       #load module
+mpicc -O3 -lm -Wall -o mpi mpi.c    #compile
+mpirun -n 4 mpi 100                 #run program
+
+# srun -c 12 ./mpi
+# sbatch sleep.job
+#squeue -u hpc-g28azi
+#scancel 92665
+### #SBATCH --cpus-per-task=1
+
+

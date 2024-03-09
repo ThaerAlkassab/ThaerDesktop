@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --job-name=mpi
+#SBATCH --ntasks=1
+#SBATCH --mem=1gb
+#SBATCH --time=00:05:00
+#SBATCH --output %x_%j.out
+#SBATCH --error %x_%j.err
+
+
+pwd
+hostname
+date
+echo "Sleeping..."
+sleep 60
+date
+# srun -c 12 ./mpi
+# sbatch sleep.job
+#squeue -u hpc-g28azi
+#scancel 92665
+### #SBATCH --cpus-per-task=1
+
+

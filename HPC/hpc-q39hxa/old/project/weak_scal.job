@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --job-name=omp_weak
+#SBATCH -n 1
+#SBATCH -c 12
+#SBATCH -o %x_%j.out
+#SBATCH -e %x_%j.err
+
+Npc=100000000 # number of intervals per core
+
+#echo -en serial'\t'
+#./gauss_serial $Npc | awk '{ORS="\t";print $2}'
+#echo
+
+for p in 1 2 4 8 12
+do
+        N=$(( p * Npc ))
+        echo -en $p'\t'
+        # parallel execution for N
+        OMP_NUM_THREADS=$p ./gauss_parallel $N | awk '{ORS="\t";print $2}'
+        # serial execution for N
+        ./gauss_serial $N | awk '{ORS="\t";print $2}'
+        echo
+done

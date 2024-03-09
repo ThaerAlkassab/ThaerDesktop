@@ -1,0 +1,4 @@
+import subprocess
+hs = subprocess.check_output(["hostname"])
+cpuid = subprocess.check_output("cat /proc/cpuinfo | grep processor | wc -l", shell=True)
+print("Hello world from " +  hs + " CPU " + cpuid)

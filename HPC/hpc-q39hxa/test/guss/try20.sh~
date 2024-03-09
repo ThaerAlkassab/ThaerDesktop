@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Function to run NGUT and extract the number of guesses
+function run_NGUT_and_extract_guesses {
+    local guesses=$(mpirun -n 2 ./NGUT | grep guesses | cut -d' ' -f8)
+    echo "$guesses"
+}
+
+# Run NGUT to get the number of tries
+tries=$(mpirun -n 2 ./NGUT | grep tries | cut -d' ' -f2)
+echo "Number of tries: $tries"
+
+# Array to store the number of guesses
+declare -a guesses_array=()
+
+# Loop to run NGUT 20 times and get the number of guesses
+for ((i=0; i<20; i++)); do
+    guesses=$(run_NGUT_and_extract_guesses)
+    echo "Guesses: $guesses"
+    guesses_array+=("$guesses")
+done
+
+# Calculate the sum of guesses
+sum=0
+for guesses in "${guesses_array[@]}"; do
+    ((sum += guesses))
+done
+
+# Calculate the average
+average=$(echo "scale=2; $sum / 20" | bc)
+echo "Average of guesses: $average"

@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name=hello_world
+#SBATCH --ntasks=1
+#SBATCH --mem=1gb
+#SBATCH --nodes=1
+#SBATCH --time=00:01:00
+#SBATCH --output=hello_world_%j.out
+#SBATCH --error=hello_world_%j.out
+
+pwd
+hostname
+date
+
+./hello

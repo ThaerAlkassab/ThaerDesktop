@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=omp_strong
+#SBATCH -n 1
+#SBATCH -c 32
+#SBATCH -o %x_%j.out
+#SBATCH -e %x_%j.err
+
+
+N=12000000
+echo -n "" > res_p.txt
+
+echo -en "serial\t" >> res_p.txt
+./numint_s $N >> res_p.txt
+
+for p in 1 2 4 8 16 32
+do
+    echo -en $p "\t" >> res_p.txt
+    OMP_NUM_THREADS=$p ./numint_p $N >> res_p.txt
+done

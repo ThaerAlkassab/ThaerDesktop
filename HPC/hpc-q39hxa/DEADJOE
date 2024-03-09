@@ -1,0 +1,134 @@
+
+*** These modified files were found in JOE when it aborted on Thu Oct  5 09:35:44 2023
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+y
+Thaer
+Thaer
+THAER
+THAER
+
+*** File '(Unnamed)'
+Q
+D
+romeo
+Romeo
+ROMEO
+ROMEO
+
+*** File '(Unnamed)'
+hello.py
+hell.pyű
+hell.py
+hell.py
+hell.py
+hell.py
+hell.py
+hell.py
+hello.sh
+bass.sh
+bass.sh
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
+
+*** These modified files were found in JOE when it aborted on Thu Oct  5 19:38:08 2023
+*** JOE was aborted because the terminal closed
+
+*** File 'c_l.c'
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <netdb.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+ 
+// Returns hostname for the local computer
+void checkHostName(int hostname)
+{
+    if (hostname == -1)
+    {
+        perror("gethostname");
+        exit(1);
+    }
+}
+ 
+// Returns host information corresponding to host name
+void checkHostEntry(struct hostent * hostentry)
+{
+    if (hostentry == NULL)
+    {
+        perror("gethostbyname");
+        exit(1);
+    }
+}
+ 
+int main()
+{
+    char hostbuffer[256];
+    struct hostent *host_entry;
+    int hostname;
+ 
+    // To retrieve hostname
+    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+    checkHostName(hostname);
+ 
+    // To retrieve host information
+    host_entry = gethostbyname(hostbuffer);
+    checkHostEntry(host_entry);
+ 
+    printf("Hostname: %s\n", hostbuffer);
+
+    // To get CPUid
+
+    if (!cpuid_present()) {
+        printf("Sorry, your CPU doesn't support CPUID!\n");
+        return -1;
+    }
+
+    }
+
+
+*** File '(Unnamed)'
+y
+Thaer
+Thaer
+THAER
+THAER
+
+*** File '(Unnamed)'
+Q
+D
+romeo
+Romeo
+ROMEO
+ROMEO
+
+*** File '(Unnamed)'
+c.c
+c.c
+c.c
+c.c
+c.c
+c.c
+c_l.c
+c_l.c
+c_l.c
+c_l.c
+c_l.c
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
+
+*** These modified files were found in JOE when it aborted on Tue Oct 17 13:00:59 2023
+*** JOE was aborted because the terminal closed

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+N=12000000
+
+echo -n serial'\t'
+./numint $N | awk '{ORS="\t";print $2}'
+echo
+
+for p in 16 32
+do
+	echo -n $p'\t'
+	OMP_NUM_THREADS=$p .omp_numint $N | awk '{ORS="\t";print $2}'
+	echo
+done

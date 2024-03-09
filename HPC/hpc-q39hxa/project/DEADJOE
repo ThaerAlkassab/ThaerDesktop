@@ -1,0 +1,111 @@
+
+*** These modified files were found in JOE when it aborted on Tue Nov 28 21:22:01 2023
+*** JOE was aborted by UNIX signal 15
+
+*** These modified files were found in JOE when it aborted on Tue Nov 28 21:22:01 2023
+*** JOE was aborted by UNIX signal 15
+
+*** File '(Unnamed)'
+
+*** File 'C_C_S.c'
+y
+Thaer
+Thaer
+THAER
+THAER
+#include <stdio.h>
+
+int max(int a, int b) { return (a > b)? a : b; }
+// Returns the maximum value that can be put in a knapsack of capacity W
+int knapsack(int W, int wt[], int val[], int n)
+{
+   int i, w;
+   int K[n+1][W+1];
+
+   // Build table K[][] in bottom up manner
+   for (i = 0; i <= n; i++)
+   {
+       for (w = 0; w <= W; w++)
+       {
+           printf("\ni %d : w %d", i, 
+*** File '(Unnamed)'
+w);
+           if (i==0 || w==0)
+               K[i][w] = 0;
+           else if (wt[i-1] <= w)
+                 K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
+           else
+                 K[i][w] = K[i-1][w];
+       }
+   }
+
+   return K[n][W];
+}
+
+int main()
+{
+    int val[] = {100, 60, 120};
+    int wt[] = {20, 10, 30};
+    int  W = 55;
+    int n = sizeof(val)/sizeof(val[0]);
+    printf("\nValue = %d", knapsack(W, wt, val, n));
+    return 0;
+}Q
+D
+romeo
+Romeo
+ROMEO
+ROMEO
+
+*** File '(Unnamed)'
+
+*** File '(Unnamed)'
+y
+Thaer
+Thaer
+THAER
+THAER
+pi.c
+pi.c
+C_C.c
+C_C.c
+C_C2.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_S.c
+
+*** File '(Unnamed)'
+
+*** File '* Startup Log *'
+Q
+D
+romeo
+Romeo
+ROMEO
+ROMEO
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
+
+*** File '(Unnamed)'
+pi.c
+pi.c
+C_C.c
+C_C.c
+C_C2.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_NO.c
+C_C_S.c
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc

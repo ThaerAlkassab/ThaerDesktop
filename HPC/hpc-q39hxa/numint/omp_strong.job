@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=omp_strong
+#SBATCH -n 1
+#SBATCH -c 12
+#SBATCH -o %x_%j.out
+#SBATCH -e %x_%j.err
+
+N=12000000
+
+echo -en serial'\t'
+./numint $N | awk '{ORS="\t";print $2}'
+echo
+
+for p in 1 2 4 8 12
+do
+	echo -en $p'\t'
+	OMP_NUM_THREADS=$p ./omp_numint $N | awk '{ORS="\t";print $2}'
+	echo
+done

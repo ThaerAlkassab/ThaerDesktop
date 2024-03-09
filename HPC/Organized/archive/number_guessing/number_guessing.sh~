@@ -1,0 +1,19 @@
+#!/bin/bash
+
+inp=-1
+(( gen = RANDOM % 100 + 1 ))
+typeset -i c=0 # c will be integer
+
+while (( gen != inp ))
+do
+	read -p "Tell me your guess: " inp
+	(( c++ ))
+	if (( inp < gen ))
+	then
+		"Need bigger number!"
+	elif (( inp > gen ))
+	then
+		echo "Need smaller number!"
+	fi
+done
+echo "You guessed the number! You needed $c guesses."

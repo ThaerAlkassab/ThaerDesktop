@@ -1,0 +1,4 @@
+mpi.c: In function ‘main’:
+mpi.c:14:5: warning: implicit declaration of function ‘time’ [-Wimplicit-function-declaration]
+     srand(time(0));
+     ^

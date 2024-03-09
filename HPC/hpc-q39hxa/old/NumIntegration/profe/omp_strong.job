@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --job-name=omp_strong
+#SBATCH -n 1
+#SBATCH -c 12
+#SBATCH -o %x%j.out
+#SBATCH -e %x%j.err
+
+N=12000000
+
+echo -n serial'\t'
+./numint $N | awk  '{ORS="\t";print $2}'
+echo
+for p in 1 2 4 8 16 32
+do 
+	echo -en $p '\t'		# print i, -n: without \n, -e: needed for \t
+	OMP_NUM_THREADS=$p ./omp_numint $N  | awk '{ORS="\t";print $2}'
+		# call numint.py with i subints
+		# takes output line by line
+		# prints 2nd columns ($2)
+		# separates output with \t
+		# ORS = output record separator
+	
+	echo	# we a new line
+done

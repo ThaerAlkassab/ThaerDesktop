@@ -1,0 +1,4 @@
+mpi.c: In function ‘main’:
+mpi.c:23:5: warning: implicit declaration of function ‘sched_getcpu’ [-Wimplicit-function-declaration]
+     printf("I am rank #%d of %d - %s %d\n", myrank, ranks, processor_name, sched_getcpu());
+     ^

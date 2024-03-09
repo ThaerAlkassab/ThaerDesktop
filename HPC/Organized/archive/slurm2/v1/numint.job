@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --job-name=numint
+#SBATCH --ntasks=1
+#SBATCH --mem=1gb
+#SBATCH --nodes=1
+#SBATCH --time=00:01:00
+#SBATCH --output=numint_%j.out
+#SBATCH --error=numint_%j.out
+
+#!/bin/bash
+for i in 10 100 1000 10000
+do
+	echo -en $i "\t"
+	var=$(./numint $i)
+	echo "$var"
+	echo
+done
+
+

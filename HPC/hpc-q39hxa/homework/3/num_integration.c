@@ -4,23 +4,17 @@
 #include <omp.h>
 #include <mpi.h>
 
-double gettime()
-{
-    return 0;//omp_get_wtime();
-}
 
 int main( int argc, char ** argv )
 {
     typedef double myf;
     #define mycos(x) cos(x)
-    // cosf: float, cos: double, cosl: long double
+   
     typedef int myi;
-    myf a = 0; // float, double, long double // not change
-    myf b = 1.570796326794896619231321691639751442L; // not change
-    myf res = 0; //change
+    myf a = 0; 
+    myf b = 1.570796326794896619231321691639751442L;
+    myf res = 0; 
 
-    // loop over subintervals
-    //double start = gettime();
     int numtasks, rank, dest, source = 1;
     MPI_Status Stat;
 
@@ -29,8 +23,8 @@ int main( int argc, char ** argv )
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     int N = numtasks;
-    myf dx = (b-a)/N; // not change
-    myf dxhalf = dx*0.5; // no change
+    myf dx = (b-a)/N; 
+    myf dxhalf = dx*0.5; 
 
     myf myres = 0;
     myi i = rank;
@@ -40,13 +34,11 @@ int main( int argc, char ** argv )
 
     if(rank==0){    
     res *= dx;
-//    double end = gettime();
 
-//    # print results
     printf("Results: %18.16Lf\n", (long double)res);
-//    # compare with analytic result (1)
+
     printf("Error: %18.16Lf\n", (long double)(res - 1.0));
-//    printf("Time: %8.6f\n", end - start);
+
     }
     MPI_Finalize();
     return 0;

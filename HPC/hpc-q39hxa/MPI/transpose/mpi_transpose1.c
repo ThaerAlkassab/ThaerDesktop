@@ -2,13 +2,16 @@
 #include <stdlib.h>
 // #include <sys/time.h>
 #include <mpi.h>
+#include <string.h>
 
-typedef unsigned long long tint ;
+typedef int tint ;
+#define MY_MPI_INT_TYPE MPI_INT
 typedef float tflt ;
 #define MY_MPI_FLOAT_TYPE MPI_FLOAT
 
 int myrank, ranks;
 tint N, rlow, rhigh, nrows, rem ;
+tint * rlows;
 tflt * data;
 
 double gettime()
@@ -112,65 +115,82 @@ void print_sum_by( )
 
 void matrix_transpose()
 {
-    tflt * d2 = (tflt *)calloc( nrows * N, sizeof(tflt) );
-    // N rows and nrows columns
+    // data is not transposed
+    tflt * d2 = (tflt *)malloc( nrows * N * sizeof(tflt) );
     tint i, j, c;
     tflt s;
     MPI_Request * SReqs = (MPI_Request *)malloc( nrows * ranks * sizeof(MPI_Request) );
-    MPI_Request * RReqs = (MPI_Request *)malloc( nrows * ranks * sizeof(MPI_Request) );
+    MPI_Request * RReqs = (MPI_Request *)malloc( N * sizeof(MPI_Request) );
+    MPI_Status * SStats = (MPI_Status *)malloc( nrows );
+    MPI_Status * RStats = (MPI_Status *)malloc( nrows+1 );
     
 
-    // gather data to d2
     for( c = 0; c < ranks; c++ )
     {
         if( c == myrank )
         {
-            for( i = 0 ; i < nrows ; i++ )
-                for( j = 0; j < nrows ; j++ )
-//                    d2[ i * N + rlow + j] = data[ (i + rlow) * nrows + j ];
-                    d2[ (i+rlow)*nrows + j ] = data[ i*N+rlow+j ];
+            // copy my data to d2
+            printf("R%d memcpy\n", myrank);
+            for( i = rlow; i < rhigh; i++ )
+                for( j = rlow; j < rhigh; j++ )
+                    d2[ i * nrows + j ] = data[ (i-nrows) * N + j] ;
+//                memccpy( d2+i*nrows, data+(i-nrows)*N, rhigh-rlow, sizeof(tflt) );
+            printf("R%d memcpy done\n", myrank);
         }
         else
         {
-            for( i = 0; i < nrows ; i++ )
-                MPI_Isend( data+i*N+c*nrows, nrows, MY_MPI_FLOAT_TYPE,
-                           c, i, MPI_COMM_WORLD, SReqs +c*nrows+i);
-            for( i = 0; i < nrows ; i++ )
-                MPI_Irecv( d2 + c*nrows*nrows +i*nrows, nrows, MY_MPI_FLOAT_TYPE,
-                           c, i, MPI_COMM_WORLD, RReqs +c*nrows+i);
+            printf("R%d comm to %d\n", myrank, c);
+            for( i = rlow; i < rhigh; i++ )
+                MPI_Isend( data + (i-rlow)*N + rlows[c], rlows[c+1]-rlows[c], MY_MPI_FLOAT_TYPE,
+                           c, i, MPI_COMM_WORLD, SReqs+c*nrows+(i-rlow) );
+            for( i = rlows[c]; i < rlows[c+1]; i++ )
+                MPI_Irecv( d2 + i * nrows, nrows, MY_MPI_FLOAT_TYPE,
+                           c, i, MPI_COMM_WORLD, RReqs+i );
+            printf("R%d comm to %d done\n", myrank, c);
         }
     } 
-    // make sure that all Isends/Irecvs are completed
-    MPI_Status * Stats = (MPI_Status *)malloc( nrows*sizeof(MPI_Status) );
-    for( c = 0; c < ranks ; c++)
+
+    for( c = 0 ; c < ranks; c++ )
     {
         if( c != myrank )
         {
-            // make sure that all sends with rank c are done
-            MPI_Waitall( nrows, SReqs +c*nrows, Stats );
-            // make sure that all recvs with rank c are done
-            MPI_Waitall( nrows, RReqs +c*nrows, Stats );
+            printf("R%d wait on comm to %d\n", myrank, c);
+            MPI_Waitall( nrows, SReqs + c*nrows, SStats );
+            MPI_Waitall( rlows[c+1] - rlows[c], RReqs+rlows[c], RStats );
+            printf("R%d wait on comm to %d done\n", myrank, c);
         }
     }
-    free(Stats);
-    // transpose data in d2 to data
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    // just transpose all to data
+    printf("R%d transpose\n", myrank);
     for( i = 0; i < N ; i++ )
         for( j = 0; j < nrows; j++ )
-            data[j * N + i ] = d2[i * nrows + j];
-
+            data[ j*N+i ] = d2[ i*nrows + j ];
+    printf("R%d transpose done\n", myrank);
     MPI_Barrier(MPI_COMM_WORLD);
+        
     free(d2);
+    printf("R%d free d2 done\n", myrank);
     free(SReqs);
+    printf("R%d free sreq done\n", myrank);
     free(RReqs);
+    printf("R%d free rreq done\n", myrank);
+    free(SStats);
+    printf("R%d free sstats done\n", myrank);
 }
 
 int main(int argc, char ** argv)
 {
+    tint i;
+
     MPI_Init( & argc, &argv );
+
     
 //    int myrank, ranks;
     MPI_Comm_rank( MPI_COMM_WORLD, &myrank );
     MPI_Comm_size( MPI_COMM_WORLD, &ranks );
+    rlows = (tint *) calloc( (ranks + 1), sizeof(tint) );
     
     N = atoi( argv[1] );
     rlow = (N / ranks) * myrank;
@@ -186,14 +206,21 @@ int main(int argc, char ** argv)
         rlow += rem ;
         rhigh += rem ;
     }
+    
+    MPI_Allgather( &rlow, 1, MY_MPI_INT_TYPE, rlows, 1, MY_MPI_INT_TYPE, MPI_COMM_WORLD );
+    rlows[ranks] = N;
+
     printf("I am rank %d and I am managing rows %d to %d\n", myrank, rlow, rhigh-1 );
+    printf("R%d rlows: ", myrank);
+    for( i = 0; i<=ranks; i++ )
+        printf("%d ", rlows[i]);
+    printf("\n");
 
     srand(3+myrank);
     nrows = rhigh - rlow;
     // generate a random matrix of size N by N
     data = (tflt *) malloc( nrows*N*sizeof(tflt) );
     
-    tint i;
     for( i=0; i<nrows*N; i++ )
         // fill up with random floats from 0 to 1
         data[i] = (tflt)rand() / (tflt)RAND_MAX ;
@@ -205,21 +232,20 @@ int main(int argc, char ** argv)
         print_sum_by();
     }
     print_diagonalsums();
-//    return 0;
+    // return 0;
     // transpose matrix
     double start = gettime();
     matrix_transpose();
     double end = gettime();
     
+    printf("R%d Elapsed time: %8.6f\n", myrank, end - start);
     if( N < 11 )
     {
         print_matrix();
         print_sum_by();
     }
     print_diagonalsums();
-    MPI_Barrier(MPI_COMM_WORLD);
     free(data);
-    printf("Elapsed time: %8.6f\n", end - start);
-    MPI_Finalize();
+    printf("R%d Elapsed time: %8.6f\n", myrank, end - start);
     return 0;
 }

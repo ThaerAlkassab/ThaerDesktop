@@ -1,141 +1,3 @@
-rm *~
-cd ex
-joe pi.c
-cd ..
-ls
-cd heat
-cd hreat
-lsű
-ls
-joe heat.c
-cd ..
-cd ex
-joe pi.c
-cd ..
-cd hreat
-joe heat.c
-joe heatN.c
-joe heatv2.c
-cd ..
-ls
-joe numint.c
-cd ex
-joe pi.c
-cd ..
-ls
-cd test
-ls
-cd guss
-ls
-joe gussing.c
-cd ..
-cd ex
-joe pi.cű
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-./pi_c
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c -lm
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c -lm
-joe pi.c
-gcc -o pi_c pi.c -lm
-./pi_c 1000000
-joe pi.c
-./pi_c 1000000
-gcc -o pi_c pi.c -lm
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c -lm
-./pi_c 1000000
-./pi_c 1000000.0
-joe pi.c
-gcc -o pi_c pi.c -lm
-./pi_c 1000000000.0
-gcc -o pi_c pi.c
-./pi_c 100
-joe pi.c
-gcc -o pi_c pi.c
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 100
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 100
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 100
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-./pi_c 1000000000
-./pi_c 1000000
-joe pi.c
-gcc -o pi_c pi.c
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-./pi_c 100000000
-joe pi.c
-gcc -o pi_c pi.c
-./pi_c 1000000
-./pi_c 10000000
-joe pi.c
-rm *~
-cp /work/leslie/hpc/pi/* .
-ls
-rm *~
-clear
-cp /work/leslie/hpc/pi/* .
-rm *~
-ls
-rm errors.csv
-cp /work/leslie/hpc/pi/* .
-ls
-rm *~
-ls
-cp /work/leslie/hpc/pi/* .
-ls
-rm *~
-ls
-cp /work/leslie/hpc/pi/* .
-cd pi
-ls
-cd es
-cd ex
-cp /work/leslie/hpc/pi/* .
-ls
-rm *#
-rm *~
-cd project
-ls
-cd project
-ls
-joe C_C.c
 gcc -o C_C C_C.c
 joe C_C.c
 gcc -o C_C C_C.c
@@ -999,3 +861,185 @@ cp /work/leslie/hpc/transpose/* .
 rm *~
 joe mpi_transpose.c
 tree
+cd homework/2
+cd homework/
+ls
+mkdir 2_THAER
+joe rps.c
+ls
+cd ..\
+cd ..
+cd hpc-q39hxa
+tree
+cd test
+joe RPS_MPI.c
+ls
+tre
+tree
+cd guss/
+joe RPS_MPI.c 
+cd..
+cd ..
+cd homework/2_THAER/
+joe RPS_MPI.c
+module load mpi/openmpi3-x86_64
+mpicc -o RPS_MPI RPS_MPI.c 
+mpicc -std=c99 -o RPS_MPI RPS_MPI.c 
+joe RPS_MPI.c
+mpicc -std=c99 -o RPS_MPI RPS_MPI.c 
+mpirun -n 2 RPS_MPI
+pws
+pwa
+pwd
+cd ..
+3_THAER
+mkdir 3_THAER
+cd 3_THAER
+NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc NUMINT_MPI NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c
+joe NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c -lm
+mpirun -n 4 NUMINT_MPI
+joe numint_MPI.c
+mpicc -std=c99 -o numint_MPI numint_MPI.c -lm
+joe numint_MPI.c
+mpicc -std=c99 -o numint_MPI numint_MPI.c -lm
+mpirun -n 4 numint_MPI
+mpirun -n 4 NUMINT_MPI 10000
+ls
+rm numint_MPI
+rm numint_MPI.c
+rm ~*
+rm *~
+ls
+clear
+joe NUMINT_MPI.c 
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c -lm
+mpirun -n 4 NUMINT_MPI 100 1000 10000 100000
+clear
+joe control.sh
+chmod a-x control.sh
+./control.sh
+chmod a+x control.sh
+./control.sh
+mpirun -n 4 NUMINT_MPI 100000
+clear
+joe NUMINT_MPI.c 
+./control.sh
+joe NUMINT_MPI.c 
+joe control.sh
+chmod a+x control.sh
+./control.sh
+mpirun -n 4 NUMINT_MPI 100000
+joe NUMINT_MPI.c 
+mpicc -std=c99 -o NUMINT_MPI NUMINT_MPI.c -lm
+mpirun -n 4 NUMINT_MPI 1000000
+./control.sh
+ped
+pwd
+tree
+cd MPI/transpose/
+ls
+joe mpi_transpose.c
+rm mpi_transpose.c
+ls
+rm mpi_transpose
+ls
+cp /work/leslie/hpc/transpose/* .
+module load mpi/openmpi3-x86_64
+mpicc mpi_transpose mpi_transpose.c
+mpicc -o mpi_transpose mpi_transpose.c
+mpiexec -np 2 mpi_transpose 8
+rm mpi_transpose
+rm mpi_transpose.c
+cp /work/leslie/hpc/transpose/* .
+ls
+rm *~
+mpicc -o mpi_transpose mpi_transpose.c
+mpiexec -np 2 mpi_transpose 8
+mpiexec -np 4 mpi_transpose 80
+mpiexec -np 4 mpi_transpose 800
+mpiexec -np 4 mpi_transpose 80
+mpiexec -np 4 mpi_transpose 8
+mpiexec -np 4 mpi_transpose 800
+rm -f *
+ls
+cp /work/leslie/hpc/transpose/* .
+rm -f * /dev/shm/*
+ls
+cp /work/leslie/hpc/transpose/* .
+cd ..ű
+cd ..
+tree
+cd homework/
+ls
+ch 3_THAER/
+ls
+ch 3_THAER/
+cd 3_THAER/
+ls
+joe NUMINT_MPI.c
+cd ..
+cd MPI/
+ls
+cp /work/leslie/hpc/mpi/* .
+ls
+mpicc -o mpi_type mpi_type.c
+mpiexec -n 2 mpi_type
+rm *~
+ls
+tree
+mkdir openmp
+cd openmp/
+cp /work/leslie/hpc/openmp/* .
+gcc -fopenmp -o section section.c 
+./section 
+ls
+cp /work/leslie/hpc/openmp/* .
+joe task.c
+gcc -fopenmp -o task task.c 
+./task
+joe task.c
+gcc -fopenmp -o task task.c 
+joe task.c
+gcc -fopenmp -o task task.c 
+joe task.c
+gcc -fopenmp -o task task.c 
+./task
+cp task.c task_0.c
+rm task.c
+cp /work/leslie/hpc/openmp/* .
+gcc -fopenmp -o task task.c 
+OMP_NUM_THREADS=2 ./task 4
+mkdir nqueen
+cd nqueen/
+cp /work/leslie/hpc/nqueen/* .
+ls
+joe nqueen
+joe nqueen.c
+clear
+joe nqueen.c
+clear
+rm nq1.c
+clear
+cp /work/leslie/hpc/nqueen/* .
+gcc nq1 nq1.c
+gcc nq1.c nq1
+rm nq1.c
+rm nq1
+cp /work/leslie/hpc/nqueen/* .
+ls
+rm *~
+gcc nq1 nq1.c 
+gcc -o nq1 nq1.c 
+./nq1 10

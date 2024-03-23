@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <omp.h>
+
+int main()
+{
+    int x, y, z;
+    #pragma omp parallel
+    {
+        #pragma omp single
+        {
+            printf("%d ", omp_get_thread_num());
+            #pragma omp task depend( out: x )
+            printf("a%d ", omp_get_thread_num());
+            #pragma omp task untied depend( in:x ) depend( out:y )
+            printf("");
+            #pragma omp task untied depend( in:x ) depend( out:y )
+            printf("race%d ", omp_get_thread_num());
+            #pragma omp task depend( in:x ) depend( out:y )
+            printf("car%d ", omp_get_thread_num());
+            #pragma omp task depend( in:y ) depend( out:z )
+            printf("is fun%d ", omp_get_thread_num());
+            #pragma omp task depend( in:z )
+            printf("to watch%d ", omp_get_thread_num());
+        }
+    }
+    printf("\n");
+    return 0;
+}

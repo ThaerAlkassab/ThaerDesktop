@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Homepage</title>
+    <link rel="stylesheet" href="css/styles3.css">
+</head>
+
+<body>
+    <header>
+    <div class="header-left">
+        <a href="about_us.html"><img src="img/TK.png" alt="App Icon"></a>
+    </div>
+    <div class="header-right">
+        <a href="user_editing.html">Welcome <?php echo $fetch_info['name'] ?></a>
+        <a href="logout-user.php" class="logout-link">Logout</a>
+    </div>
+</header>
+
+
+
+    <div class="content">
+        <div class="admin-section">
+            <div class="messages">
+    <h2>Messages from About Us</h2>
+    <!-- Messages will be inserted here -->
+</div>
+<div class="users">
+    <h2>User Information</h2>
+    <!-- Users will be inserted here -->
+</div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2024 T&K for Languages Learning. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    fetch('php/fetch_data.php')
+        .then(response => response.json())
+        .then(data => {
+            const usersDiv = document.querySelector('.users');
+            usersDiv.innerHTML = '<h2>User Information</h2>';
+            data.users.forEach(user => {
+                usersDiv.innerHTML += `<p>ID: ${user.id}, Name: ${user.name}, Email: ${user.email}</p>`;
+            });
+            
+            const messagesDiv = document.querySelector('.messages');
+            messagesDiv.innerHTML = '<h2>Messages from About Us</h2>';
+            data.letters.forEach(letter => {
+                messagesDiv.innerHTML += `<p>Sender Name: ${letter.sender_name}, Sender Email: ${letter.sender_email}, Subject: ${letter.subject}, Message: ${letter.text}</p>`;
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
+</body>
+
+</html>

@@ -2,4 +2,5 @@
 session_start();
 session_unset();
 session_destroy();
-header('location: ../about_us.html');
+header('Location: ../about_us.html');
+exit();

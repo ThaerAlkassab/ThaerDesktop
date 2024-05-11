@@ -80,24 +80,29 @@ def text_to_image(word, code):
     return translation.text
 
 # T_K Function
-def t_k(word, code):
-  code = extract_language_code(code)
-  pronunciations = get_pronunciations(word, language=code)
-  pronunciation_link = ""  # Initialize pronunciation link
-  if pronunciations:
-      for idx, pronunciation in enumerate(pronunciations['items']):
-          audio_url = pronunciation['pathmp3']
-          try:
-              pronunciation_link = audio_url  # Store pronunciation link
-              print(audio_url)
-          except Exception as e:
-              print("Error displaying audio:", e)
+def t_k(word, language):
+    language_code = extract_language_code(language)
+    
+    # Get pronunciations
+    pronunciations = get_pronunciations(word, language=language_code)
+    pronunciation_link = ""  # Initialize pronunciation link
+    if pronunciations:
+        # Store the last pronunciation link
+        pronunciation_link = pronunciations['items'][-1].get('pathmp3', '')
 
-  if (dictionary.meaning(code, word) == ([], '', '')):
-      word = translate_and_identify_singular(word, src_lang=code)
-  meaning = dictionary.meaning(code, word)
-  text_input = str(meaning[1])
-  text_input = meaning[1]
-  generated_images = generate(text_input)
-  image = generated_images[1]
-  return (meaning ,audio_url, image)
+    # Check if the word exists in the dictionary
+    meaning = dictionary.meaning(language_code, word)
+    if not meaning[0]:  # If word not found
+        word = translate_and_identify_singular(word, src_lang=language_code)
+        meaning = dictionary.meaning(language_code, word)
+
+    # Get text input for generating images
+    text_input = meaning[1]
+    
+    # Generate and save image
+    generated_images = generate(text_input)
+    image = generated_images[0]
+    image_path = f"../img/{word}_{language}.png"
+    image.save(image_path)
+    
+    return meaning, pronunciation_link, image_path

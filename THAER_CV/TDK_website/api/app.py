@@ -1,3 +1,4 @@
+# app.py
 from flask import Flask, request, jsonify
 from database import save_to_database, search_word_in_database
 from tdk_project import t_k
@@ -16,14 +17,14 @@ def save_word():
         return jsonify({'message': 'Word already exists in the database'})
 
     # Call the t_k function to get description, audio link, and image
-    description, audio_link, image_file = t_k(word, language)
+    description, audio_link, image_path = t_k(word, language)
 
     # Save data to database
-    save_to_database(word, language, description, audio_link, image_file)
+    save_to_database(word, language, description, audio_link, image_path)
 
     return jsonify({'message': 'Data saved successfully'})
 
-@app.route('/search_word', methods=['POST'])
+@app.route('/api/search_word', methods=['POST'])
 def search_word():
     data = request.get_json()
     language = data.get('language')
@@ -36,11 +37,11 @@ def search_word():
         return jsonify({'found': True, **word_data})
     else:
         # Word not found in the database, call t_k function
-        description, audio_link, image_file = t_k(search_word, language)
+        description, audio_link, image_path = t_k(search_word, language)
         if description:
             # Word found using t_k, save it to the database
-            save_to_database(search_word, language, description, audio_link, image_file)
-            return jsonify({'found': True, 'description': description, 'audio': audio_link, 'image': image_file})
+            save_to_database(search_word, language, description, audio_link, image_path)
+            return jsonify({'found': True, 'description': description, 'audio': audio_link, 'image': image_path})
         else:
             # Word not found using t_k
             return jsonify({'found': False})

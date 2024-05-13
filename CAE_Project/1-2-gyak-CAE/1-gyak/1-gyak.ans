@@ -1,0 +1,60 @@
+finish
+/clear
+
+/cwd,/home/perebal/ansys/CAE_gyak
+*abbr,pln_str,/input,1-gyak,ans
+
+/prep7
+
+a=100
+
+*ask,a,length of the edge,100
+*ask,n,number of element per edge,10
+
+blc4,0  ,0,a/2,a
+blc4,a/2,0,a/2,a
+!aadd,all
+aglue,all
+
+
+mp,ex,1,2e5
+mp,nuxy,1,0.3
+
+et,1,plane182
+keyopt,1,3,2    ! 2: plane strain, 3: plane stress with thickness
+r,1,1           ! thickness: 1mm
+
+esize,a/n
+mshape,0,2d     ! 0: quadrilateral, 1: triangle
+mshkey,1        ! 0: free, 1: mapped
+
+amesh,all
+
+lsel,s,loc,y,0
+dl,all,,uy,0
+
+lsel,s,loc,x,0
+dl,all,,ux,0
+
+lsel,s,loc,y,a
+lsel,r,loc,x,0,a/2
+sfl,all,pres,10
+
+allsel
+
+finish
+/solu
+
+solve
+
+finish
+/post1
+
+plnsol,u,x
+
+/wait,2
+
+plesol,s,xy
+!plnsol,s,xy
+
+

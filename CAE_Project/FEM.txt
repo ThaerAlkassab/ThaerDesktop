@@ -1,0 +1,179 @@
+// Gmsh project created on Mon Apr 15 00:46:32 2024
+SetFactory("OpenCASCADE");
+//+
+Point(1) = {0, 0, 0, 1.0};
+//+
+Point(2) = {200, 0, 0, 1.0};
+//+
+Point(3) = {200, 100, 0, 1.0};
+//+
+Point(4) = {0, 100, 0, 1.0};
+//+
+Point(5) = {100, 50, 0, 1.0};
+//+
+Point(6) = {100, 25, 0, 1.0};
+//+
+Point(7) = {100, 75, 0, 1.0};
+//+
+Line(1) = {4, 1};
+//+
+Line(2) = {3, 2};
+//+
+Line(3) = {4, 3};
+//+
+Line(4) = {1, 2};
+//+
+Circle(5) = {6, 5, 7};
+//+
+Circle(6) = {7, 5, 6};
+//+
+Curve Loop(1) = {3, 2, -4, -1};
+//+
+Curve Loop(2) = {5, 6};
+//+
+Surface(1) = {1, 2};
+//+
+Curve Loop(3) = {3, 2, -4, -1};
+//+
+Curve Loop(4) = {5, 6};
+//+
+Plane Surface(1) = {3, 4};
+//+
+Physical Surface("body", 7) = {1};
+//+
+Physical Curve("Left", 8) = {1};
+//+
+Physical Curve("Right", 9) = {2};
+//+
+Physical Curve("Walls", 10) = {5, 6, 3, 4};
+
+Mesh 2;
+
+
+
+
+
+
+import LowLevelFEM as FEM
+using LowLevelFEM
+
+gmsh.initialize()
+
+# Load the mesh and define material properties
+gmsh.open("FEM.geo")
+mat = FEM.material("body", E=2.e5, ν=0.3)
+problem = FEM.Problem([mat], type="PlaneStress")
+
+# Define boundary conditions
+supp = FEM.displacementConstraint("supp", ux=0, uy=0)
+load = FEM.load("load", fy=-1)
+
+# Assemble stiffness matrix and load vector
+K = FEM.stiffnessMatrix(problem)
+f = FEM.loadVector(problem, [load])
+
+# Apply boundary conditions
+FEM.applyBoundaryConditions!(problem, K, f, [supp])
+
+# Solve for displacement and stress
+q = FEM.solveDisplacement(K, f)
+S = FEM.solveStress(problem, q)
+
+# Visualize results
+u = FEM.showDoFResults(problem, q, "uvec", name="uvec", visible=false)
+ux = FEM.showDoFResults(problem, q, "ux", name="ux", visible=false)
+uy = FEM.showDoFResults(problem, q, "uy", name="uy", visible=false)
+
+s = FEM.showStressResults(problem, S, "s", name="σ", visible=true, smooth=true)
+sx = FEM.showStressResults(problem, S, "sx", name="σx", visible=false, smooth=true)
+sy = FEM.showStressResults(problem, S, "sy", name="σy", visible=false, smooth=true)
+sxy = FEM.showStressResults(problem, S, "sxy", name="τxy", visible=false, smooth=true)
+
+FEM.plotOnPath(problem, "path", sx, 100, name="σx", visible=false)
+FEM.plotOnPath(problem, "path", sxy, 100, name="τxy", visible=false)
+FEM.plotOnPath(problem, "path", ux, 100, name="ux", visible=false)
+
+# Run the visualization
+gmsh.fltk.run()
+gmsh.finalize()
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+from fenics import *
+
+# Create rectangular domain
+Lx = 200
+Ly = 100
+rectangle = Rectangle(Point(0, 0), Point(Lx, Ly))
+
+# Create circle
+circle_center = Point(100, 50)
+circle_radius = 25
+circle = Circle(circle_center, circle_radius)
+
+# Define domain with the circular hole removed
+domain = rectangle - circle
+
+# Generate mesh
+mesh_resolution = 40
+mesh = generate_mesh(domain, mesh_resolution)
+
+# Define material properties
+E = 2e5  # Young's modulus (N/mm^2)
+nu = 0.3  # Poisson's ratio
+
+# Define function space
+V = VectorFunctionSpace(mesh, 'P', 1)
+
+# Define boundary conditions
+def left_boundary(x, on_boundary):
+    return near(x[0], 0) and on_boundary
+
+def right_boundary(x, on_boundary):
+    return near(x[0], Lx) and on_boundary
+
+bc_left = DirichletBC(V, Constant((0, 0)), left_boundary)
+bc_right = DirichletBC(V.sub(0), Constant(0), right_boundary)
+bcs = [bc_left, bc_right]
+
+# Define strain and stress
+def epsilon(u):
+    return 0.5 * (nabla_grad(u) + nabla_grad(u).T)
+
+def sigma(u):
+    return lmbda * div(u) * Identity(2) + 2 * mu * epsilon(u)
+
+# Define variational problem
+u = TrialFunction(V)
+v = TestFunction(V)
+f = Constant((0, -1))  # Body force
+a = inner(sigma(u), epsilon(v)) * dx
+L = dot(f, v) * dx
+
+# Define material properties
+mu = E / (2.0 * (1.0 + nu))
+lmbda = E * nu / ((1.0 + nu) * (1.0 - 2.0 * nu))
+
+# Solve the problem
+u = Function(V)
+solve(a == L, u, bcs)
+
+# Plot Deformed Shape
+plt.figure()
+plot(factor*u, mode="displacement")
+plt.title('Deformed Shape')
+plt.xlabel('X')
+plt.ylabel('Y')
+
+# Plot stress σxx
+plt.figure()
+plot(sigma(u)[0,0], mode='color')
+plt.title('Stress σxx')
+plt.xlabel('X')
+plt.ylabel('Y')
+
+plt.show()

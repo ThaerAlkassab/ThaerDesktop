@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Homepage</title>
+    <link rel="stylesheet" href="css/styles3.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <a href="about_us.html"><img src="img/TK.png" alt="App Icon"></a>
+        </div>
+        <div class="header-right">
+            <a href="php/new-password.php">Welcome <?php echo $fetch_info['name'] ?></a>
+            <a href="php/logout-user.php" class="logout-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="admin-section">
+            <div class="messages">
+                <h2>Messages from About Us</h2>
+                <!-- Messages will be inserted here -->
+            </div>
+            <div class="users">
+                <h2>User Information</h2>
+                <!-- Users will be inserted here -->
+            </div>
+
+            <div class="templates">
+                <h2>Choose or Add Template</h2>
+                <form action="php/add_template.php" method="POST">
+                    <label for="template">Choose Template:</label>
+                    <select name="template" id="template">
+                        <?php
+                        // Include the database connection file
+                        require_once 'connection.php';
+
+                        // Fetch templates from the templates_table
+                        $query = "SELECT * FROM templates_table";
+                        $result = mysqli_query($con, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['template_ID'] . "'>" . $row['template_name'] . "</option>";
+                        }
+                        ?>
+                        <option value="new">Add New Template</option>
+                    </select>
+                    <div id="template-fields">
+                        <label for="template_name">Template Name:</label>
+                        <input type="text" name="template_name" id="template_name">
+                        <label for="questions_counter">Questions Counter:</label>
+                        <input type="number" name="questions_counter" id="questions_counter" min="1">
+                        <label for="template_timer">Template Timer (minutes):</label>
+                        <input type="number" name="template_timer" id="template_timer" min="1">
+                    </div>
+                    <button type="submit">Create Template and Go to Test</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2024 Siciliamia. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("template").addEventListener("change", function () {
+            var templateSelect = document.getElementById("template");
+            var selectedOption = templateSelect.options[templateSelect.selectedIndex].value;
+            var templateFields = document.getElementById("template-fields");
+
+            if (selectedOption === "new") {
+                // Clear fields for new template
+                clearFields();
+            } else {
+                // Populate fields with existing template data
+                populateFields(selectedOption);
+            }
+        });
+
+        function clearFields() {
+            document.getElementById("template_name").value = "";
+            document.getElementById("questions_counter").value = "";
+            document.getElementById("template_timer").value = "";
+        }
+
+        function populateFields(templateID) {
+            // Fetch existing template data from the database
+            fetch('php/get_template.php?templateID=' + templateID)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("template_name").value = data.template_name;
+                    document.getElementById("questions_counter").value = data.questions_counter;
+                    document.getElementById("template_timer").value = data.template_timer;
+                })
+                .catch(error => console.error('Error fetching template data:', error));
+        }
+    </script>
+
+</body>
+
+</html>

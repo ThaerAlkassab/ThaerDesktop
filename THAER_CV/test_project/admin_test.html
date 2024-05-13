@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Admin Test</h1>
+    </header>
+
+    <div class="content">
+        <form id="questionForm">
+            <label for="questionText">Question Text:</label>
+            <input type="text" id="questionText" name="questionText">
+
+            <label for="answerA">Answer A:</label>
+            <input type="text" id="answerA" name="answerA">
+
+            <label for="answerB">Answer B:</label>
+            <input type="text" id="answerB" name="answerB">
+
+            <label for="answerC">Answer C:</label>
+            <input type="text" id="answerC" name="answerC">
+
+            <label for="answerD">Answer D:</label>
+            <input type="text" id="answerD" name="answerD">
+
+            <label for="correctAnswer">Correct Answer:</label>
+            <select id="correctAnswer" name="correctAnswer">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+
+            <input type="hidden" id="nextQuestionID" name="nextQuestionID" value="0">
+            <input type="hidden" id="templateID" name="templateID" value="<?php echo $_GET['templateID']; ?>">
+
+            <button type="button" id="nextButton">Next</button>
+            <button type="button" id="endButton" style="display: none;">End</button>
+        </form>
+    </div>
+
+    <script src="js/admin_test.js"></script>
+</body>
+
+</html>

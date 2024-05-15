@@ -2,9 +2,10 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import re
 
 # Read connection details from .info.txt file
-info_file = 'path/to/.info.txt'  # Adjust the path as needed
+info_file = '../.info.txt'
 with open(info_file) as f:
     lines = f.readlines()
 
@@ -44,37 +45,24 @@ class Word(Base):
 Session = sessionmaker(bind=engine)
 
 def save_to_database(word, language, description, audio_link, image_path):
-    # Create a new database session
     session = Session()
-
-    # Create a new Word object
     new_word = Word(
         word=word,
         language=language,
-        description=description,
+        description=re.sub("'","",description),
         audio=audio_link,
-        image=image_path  # Store image path
+        image=image_path
     )
-
-    # Add the new_word to the session and commit changes
     session.add(new_word)
     session.commit()
-
-    # Close the session
     session.close()
 
 def search_word_in_database(word, language):
-    # Create a new database session
     session = Session()
-
-    # Query the database for the word
     word_data = session.query(Word).filter_by(word=word, language=language).first()
-
-    # Close the session
     session.close()
 
     if word_data:
-        # Return word data as dictionary
         return {
             'word': word_data.word,
             'language': word_data.language,

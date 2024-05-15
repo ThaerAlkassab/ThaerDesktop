@@ -9,7 +9,7 @@ from PyMultiDictionary import MultiDictionary
 # Download stable diffusion model from Hugging Face
 modelid = "CompVis/stable-diffusion-v1-4"
 device = "cuda" if torch.cuda.is_available() else "cpu"
-stable_diffusion_model = StableDiffusionPipeline.from_pretrained(modelid, use_auth_token=auth_token)
+stable_diffusion_model = StableDiffusionPipeline.from_pretrained(modelid)
 stable_diffusion_model.to(device)
 
 # Generate image from text
@@ -102,7 +102,7 @@ def t_k(word, language):
     # Generate and save image
     generated_images = generate(text_input)
     image = generated_images[0]
-    image_path = f"../img/{word}_{language}.png"
+    image_path = f"{word}+{language}.png"
     image.save(image_path)
     
     return meaning, pronunciation_link, image_path

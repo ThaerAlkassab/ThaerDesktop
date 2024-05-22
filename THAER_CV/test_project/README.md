@@ -18,8 +18,8 @@ This project is an exam website where users can sign up, log in, take tests, and
 1. **Clone the Repository**
 
 ```bash
-  git clone https://github.com/yourusername/exam-website.git
-  cd exam-website
+  git clone https://github.com/ThaerAlkassab/ThaerDesktop/tree/3632aa82aff534d3e068f9712b2ec76f0e8d9869/THAER_CV/test_project
+  cd test_project
 ```
 
 2. **Set Up Database**

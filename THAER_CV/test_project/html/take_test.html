@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="../css/styles.css">
+ <title>Take Test</title>
+</head>
+
+<body>
+ <!-- Include header -->
+ <?php include 'header_logout.html'; ?>
+
+ <div class="container">
+  <h2>Exam: <span id="exam-title"></span></h2>
+  <div id="question-container">
+   <!-- Questions will be populated here by JavaScript -->
+  </div>
+  <button id="submit-test" onclick="submitTest()">Submit Test</button>
+ </div>
+
+ <!-- Include footer -->
+ <?php include 'footer.html'; ?>
+ <script src="../js/scripts.js"></script>
+</body>
+
+</html>

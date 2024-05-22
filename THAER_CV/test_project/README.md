@@ -1,5 +1,3 @@
-### README.md
-
 ````markdown
 # Exam Website Project
 
@@ -25,6 +23,8 @@ This project is an exam website where users can sign up, log in, take tests, and
    ```
 ````
 
+````
+
 2. **Set Up Database**
 
    - Create a new MySQL database.
@@ -39,7 +39,7 @@ This project is an exam website where users can sign up, log in, take tests, and
    mysql -u your_username -p your_database < db/javascript_test_template.sql
    mysql -u your_username -p your_database < db/nodejs_test_template.sql
    mysql -u your_username -p your_database < db/create_admin_user.sql
-   ```
+````
 
 3. **Configure Database Connection**
 
@@ -117,8 +117,3 @@ This project is an exam website where users can sign up, log in, take tests, and
 ## Contact
 
 For any inquiries or issues, please contact `backend1@siciliamia.com`.
-
-```
-
-This README file provides a comprehensive overview of the project, including setup instructions, folder structure, and feature descriptions. Be sure to replace placeholders like `your_username`, `your_password`, `your_database`, and `your_hostname` with actual values before running the project.
-```

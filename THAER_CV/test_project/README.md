@@ -1,4 +1,3 @@
-````markdown
 # Exam Website Project
 
 ## Overview
@@ -17,13 +16,11 @@ This project is an exam website where users can sign up, log in, take tests, and
 ### Steps
 
 1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/exam-website.git
-   cd exam-website
-   ```
-````
 
-````
+```bash
+  git clone https://github.com/yourusername/exam-website.git
+  cd exam-website
+```
 
 2. **Set Up Database**
 
@@ -34,12 +31,12 @@ This project is an exam website where users can sign up, log in, take tests, and
      3. `nodejs_test_template.sql`
      4. `create_admin_user.sql`
 
-   ```bash
+```bash
    mysql -u your_username -p your_database < db/initial_setup.sql
    mysql -u your_username -p your_database < db/javascript_test_template.sql
    mysql -u your_username -p your_database < db/nodejs_test_template.sql
    mysql -u your_username -p your_database < db/create_admin_user.sql
-````
+```
 
 3. **Configure Database Connection**
 

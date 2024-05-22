@@ -1,0 +1,4 @@
+hostname=your_hostname
+username=your_username
+password=your_password
+database=your_database

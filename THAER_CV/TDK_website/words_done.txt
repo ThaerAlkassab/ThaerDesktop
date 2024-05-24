@@ -1,0 +1,30 @@
+english_words = [
+    "people", "way", "man", "thing", "woman", "life", "child", "world", "school", "state",
+    "family", "student", "group", "country", "problem", "hand", "part", "place", "case",
+    "week", "company", "system", "program", "question", "work", "government", "number",
+    "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact",
+    "right", "study", "book", "eye", "job", "business", "kind", "house", "friend", "father",
+    "hour", "game", "member", "law", "car", "city", "President", "team", "kid", "body",
+    "information", "parent", "face", "office", "door", "person", "art", "war", "history",
+    "party", "morning", "reason", "research", "girl", "guy", "air", "teacher", "force", "education"
+]
+german_words = [
+    "Mensch", "Weg", "Mann", "Ding", "Frau", "Leben", "Kind", "Welt", "Schule", "Staat",
+    "Familie", "Student", "Gruppe", "Land", "Problem", "Hand", "Teil", "Ort", "Fall",
+    "Woche", "Firma", "System", "Programm", "Frage", "Arbeit", "Regierung", "Nummer",
+    "Nacht", "Punkt", "Zuhause", "Wasser", "Zimmer", "Mutter", "Bereich", "Geld", "Geschichte", "Tatsache",
+    "Recht", "Studie", "Buch", "Auge", "Job", "Geschäft", "Art", "Haus", "Freund", "Vater",
+    "Spiel", "Mitglied", "Gesetz", "Auto", "Stadt", "Präsident", "Team", "Kind", "Körper",
+    "Information", "Elternteil", "Gesicht", "Büro", "Tür", "Person", "Kunst", "Krieg", "Geschichte",
+    "Partei", "Morgen", "Grund", "Forschung", "Mädchen", "Junge", "Luft", "Lehrer", "Kraft", "Bildung"
+]
+french_words = [
+    "personne", "chemin", "homme", "chose", "femme", "vie", "enfant", "monde", "école", "état",
+    "famille", "étudiant", "groupe", "pays", "problème", "main", "partie", "endroit", "cas",
+    "semaine", "entreprise", "système", "programme", "question", "travail", "gouvernement", "nombre",
+    "nuit", "point", "maison", "eau", "pièce", "mère", "zone", "argent", "histoire", "fait",
+    "droit", "étude", "livre", "œil", "emploi", "affaire", "genre", "maison", "ami", "père",
+    "heure", "jeu", "membre", "loi", "voiture", "ville", "Président", "équipe", "enfant", "corps",
+    "information", "parent", "visage", "bureau", "porte", "personne", "art", "guerre", "histoire",
+    "fête", "matin", "raison", "recherche", "fille", "gars", "air", "professeur", "force", "éducation"
+]

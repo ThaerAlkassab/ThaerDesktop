@@ -1,69 +1,61 @@
-<?php require_once "controllerUserData.php"; ?>
-<?php 
-$email = $_SESSION['email'];
-$password = $_SESSION['password'];
-if($email != false && $password != false){
-    $sql = "SELECT * FROM usertable WHERE email = '$email'";
-    $run_Sql = mysqli_query($con, $sql);
-    if($run_Sql){
-        $fetch_info = mysqli_fetch_assoc($run_Sql);
-        $status = $fetch_info['status'];
-        $code = $fetch_info['code'];
-        if($status == "verified"){
-            if($code != 0){
-                header('Location: reset-code.php');
-            }
-        }else{
-            header('Location: user-otp.php');
-        }
-    }
-}else{
-    header('Location: login-user.php');
+<?php
+session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: php/login-user.php');
+    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $fetch_info['name'] ?> | Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-    nav{
-        padding-left: 100px!important;
-        padding-right: 100px!important;
-        background: #6665ee;
-        font-family: 'Poppins', sans-serif;
-    } 
-    nav a.navbar-brand{
-        color: #fff;
-        font-size: 30px!important;
-        font-weight: 500;
-    }
-    button a{
-        color: #6665ee;
-        font-weight: 500;
-    }
-    button a:hover{
-        text-decoration: none;
-    }
-    h1{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        text-align: center;
-        transform: translate(-50%, -50%);
-        font-size: 50px;
-        font-weight: 600;
-    }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Homepage</title>
+    <link rel="stylesheet" href="css/styles3.css">
 </head>
+
 <body>
-    <nav class="navbar">
-    <a class="navbar-brand" href="#">T&K for Languages Learning</a>
-    <button type="button" class="btn btn-light"><a href="logout-user.php">Logout</a></button>
-    </nav>
-    
+    <header>
+        <div class="header-left">
+            <a href="about_us.html"><img src="img/TK.png" alt="App Icon"></a>
+        </div>
+        <div class="header-right">
+            <a href="php/new-password.php">Welcome, <?php echo htmlspecialchars($_SESSION['name']); ?></a>
+            <a href="php/logout-user.php" class="logout-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="content">
+        <h2>Homepage</h2>
+        <div class="language-list">
+            <select id="language">
+                <option value="english" selected>English</option>
+                <option value="german">German</option>
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+                <option value="italian">Italian</option>
+                <option value="polish">Polish</option>
+                <option value="turkish">Turkish</option>
+            </select>
+        </div>
+        <input type="text" id="searchWord" placeholder="Enter a word">
+        <button id="searchBtn">Search</button>
+
+        <!-- Search results will be displayed here -->
+        <div id="searchResults">
+            <!-- JS will populate this area -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2024 T&K for Languages Learning. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/script2.js"></script>
 </body>
+
 </html>

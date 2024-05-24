@@ -46,10 +46,11 @@ Session = sessionmaker(bind=engine)
 
 def save_to_database(word, language, description, audio_link, image_path):
     session = Session()
+    description = re.sub("'", "", description)  # Remove apostrophes
     new_word = Word(
         word=word,
         language=language,
-        description=re.sub("'","",description),
+        description=description,
         audio=audio_link,
         image=image_path
     )

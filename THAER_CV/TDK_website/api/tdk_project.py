@@ -1,3 +1,4 @@
+import os
 import torch
 from diffusers import StableDiffusionPipeline
 from PIL import Image
@@ -5,6 +6,7 @@ from googletrans import Translator
 import requests
 import inflect
 from PyMultiDictionary import MultiDictionary
+from urllib.request import urlretrieve
 
 # Download stable diffusion model from Hugging Face
 modelid = "CompVis/stable-diffusion-v1-4"
@@ -89,6 +91,10 @@ def t_k(word, language):
     if pronunciations:
         # Store the last pronunciation link
         pronunciation_link = pronunciations['items'][-1].get('pathmp3', '')
+        audio_path = os.path.join('audio', f"{word}+{language}.mp3")
+        urlretrieve(pronunciation_link, audio_path)
+    else:
+        audio_path = ""
 
     # Check if the word exists in the dictionary
     meaning = dictionary.meaning(language_code, word)
@@ -102,7 +108,7 @@ def t_k(word, language):
     # Generate and save image
     generated_images = generate(text_input)
     image = generated_images[0]
-    image_path = f"{word}+{language}.png"
+    image_path = os.path.join('img', f"{word}+{language}.png")
     image.save(image_path)
     
-    return meaning, pronunciation_link, image_path
+    return meaning, audio_path, image_path

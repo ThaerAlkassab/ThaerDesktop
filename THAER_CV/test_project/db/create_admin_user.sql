@@ -1,1 +1,1 @@
-INSERT INTO users_table (username, email, password, role) VALUES ('admin', 'backend1@siciliamia.com', '$2y$10$Tb/qQGONbqMG9jgn2sBlzOu3n/Q/5OqgV/n0gTkVjEjl8Ec9umzUu', 'admin');
+INSERT INTO users_table (username, email, password, role) VALUES ('admin', 'backend1@siciliamia.com', '$2y$10$vEN2ueYImTMS6RZQKifzt.qUYpEPej6J0rjPgd15eWAWuSnuKiETi', 'admin');

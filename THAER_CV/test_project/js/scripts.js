@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 li.innerText = template.name;
                 li.setAttribute('data-template-id', template.id);
                 li.addEventListener('click', function() {
-                    window.location.href = `take_test.html?template_id=${template.id}`;
+                    window.location.href = `../html/take_test.html?template_id=${template.id}`;
                 });
                 templateList.appendChild(li);
             });
@@ -24,21 +24,26 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 let questionContainer = document.getElementById('question-container');
-                data.questions.forEach((question, index) => {
-                    let div = document.createElement('div');
-                    div.classList.add('question');
-                    div.innerHTML = `
-                        <p>${index + 1}. ${question.text}</p>
-                        ${question.options.map((option, i) => `
-                            <label>
-                                <input type="radio" name="question${index}" value="${option}">
-                                ${option}
-                            </label>
-                        `).join('')}
-                    `;
-                    questionContainer.appendChild(div);
-                });
-            });
+                if (data.questions.length > 0) {
+                    data.questions.forEach((question, index) => {
+                        let div = document.createElement('div');
+                        div.classList.add('question');
+                        div.innerHTML = `
+                            <p>${index + 1}. ${question.text}</p>
+                            ${question.options.map((option, i) => `
+                                <label>
+                                    <input type="radio" name="question${index}" value="${option}">
+                                    ${option}
+                                </label>
+                            `).join('')}
+                        `;
+                        questionContainer.appendChild(div);
+                    });
+                } else {
+                    questionContainer.innerHTML = "<p>No questions available.</p>";
+                }
+            })
+            .catch(error => console.error('Error fetching questions:', error));
     }
 });
 
@@ -65,7 +70,7 @@ function submitTest() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = `result.html?score=${data.score}`;
+            window.location.href = `../html/result.html?score=${data.score}`;
         } else {
             alert('There was an error submitting the test.');
         }

@@ -16,30 +16,37 @@
   <link rel="stylesheet" href="css/custom.css">
   <!-- Favicon-->
   <link rel="shortcut icon" href="img/favicon.png">
+  <!-- Bootstrap CSS for buttons -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="0" tabindex="0">
   <!-- navbar-->
   <header class="header">
     <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="navbar">
-      <div class="container"><a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="45"></a>
+      <div class="container">
+        <a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="45"></a>
         <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link text-uppercase active" href="#hero">Home <span
-                  class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase active" href="#hero">Home</a></li>
             <li class="nav-item"><a class="nav-link text-uppercase" href="#about">About</a></li>
             <li class="nav-item"><a class="nav-link text-uppercase" href="#expertise">Expertise</a></li>
             <li class="nav-item"><a class="nav-link text-uppercase" href="#education">Education</a></li>
             <li class="nav-item"><a class="nav-link text-uppercase" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase" href="#volunteering">Volunteering</a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase" href="#hobbies">Hobbies</a></li>
             <li class="nav-item"><a class="nav-link text-uppercase" href="#contact">Contact</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
+
+  <!-- Hero Section -->
   <section class="hero bg-cover bg-center py-5" id="hero" style="background: url(img/author.jpg)">
     <div class="container py-5 my-5 z-index-20 position-relative">
       <div class="row py-lg-5 mt-5">
@@ -53,224 +60,110 @@
       </div>
     </div>
   </section>
-  <!-- About Section-->
+
+  <!-- About Section -->
   <section class="py-5 bg-light" id="about">
     <div class="container py-5">
       <header class="mb-5">
-        <p class="fw-bold text-primary text-uppercase letter-spacing-3"></p>
         <h2 class="h3 lined">About Me</h2>
       </header>
-      <p class="lead text-muted">I am Thaer Alkassab, from Syria. I was born in Salamyiah on June 28th, 1996.
-        Currently, I am pursuing a Master's degree in Computer Science in Győr, Hungary.</p>
+      <p class="lead text-muted">I am Thaer Alkassab, from Syria. I was born in Salamyiah on June 28th, 1996. Currently,
+        I am pursuing a Master's degree in Computer Science in Győr, Hungary.</p>
       <p class="text-muted">I have a background in Telecommunication Engineering and have experience working as a
         backend developer and a university lecturer. My interests lie in Data Science, AI, and Machine Learning.</p>
-        <p class="text-muted mb-0">I am fluent in Arabic and English, with a good knowledge of French, and basic knowledge of German and Hungarian. I am passionate about learning and contributing to advancements in technology.</p>
+      <p class="text-muted mb-0">Fluent in Arabic and English, with a good knowledge of French, and basic knowledge of
+        German and Hungarian.</p>
     </div>
   </section>
+
   <!-- Expertise Section -->
   <section class="py-5" id="expertise">
     <div class="container py-5">
       <header class="mb-5 pb-4">
-        <p class="fw-bold text-primary text-uppercase letter-spacing-3"></p>
         <h2 class="text-uppercase lined">Expertise</h2>
       </header>
       <div class="row gy-5">
-        <div class="col-md-6">
-          <h3 class="h4"><span class="text-primary me-2">01</span>Data Science</h3>
-          <p class="text-muted text-sm ms-4 ps-3">Proficient in Python for Data Science, adept in data manipulation,
-            analysis, and machine learning libraries such as pandas, matplotlib, seaborn, and scikit-learn. Experienced
-            in MySQL for database management and querying.</p>
-        </div>
-        <div class="col-md-6">
-          <h3 class="h4"><span class="text-primary me-2">02</span>Machine Learning</h3>
-          <p class="text-muted text-sm ms-4 ps-3">Skilled in Python and machine learning, adept at building models and
-            analyzing data using libraries like scikit-learn and PyTorch.</p>
-        </div>
-        <div class="col-md-6">
-          <h3 class="h4"><span class="text-primary me-2">03</span>Networking</h3>
-          <p class="text-muted text-sm ms-4 ps-3">Comprehensive Networking skills, including proficiency in managing
-            Windows Server environments, configuring 4G/5G mobile networks, and optimizing LANs for efficient data
-            transmission.</p>
-        </div>
-        <div class="col-md-6">
-          <h3 class="h4"><span class="text-primary me-2">04</span>Web Development</h3>
-          <p class="text-muted text-sm ms-4 ps-3">Proficient in Web Development, including technologies like HTML, CSS,
-            JavaScript, PHP, and backend development with Python, MySQL, Docker, and version control systems such as
-            Git.</p>
-        </div>
+        <!-- Expertise Items -->
       </div>
     </div>
   </section>
-  <!-- Education Section-->
+
+  <!-- Education Section -->
   <section class="py-5 bg-light" id="education">
     <div class="container py-5">
       <header class="mb-5 pb-4">
-        <p class="fw-bold text-primary text-uppercase letter-spacing-3"></p>
         <h2 class="text-uppercase lined">Education</h2>
       </header>
-      <!--  Timeline -->
       <ul class="timeline">
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2023 - 2025 </p>
-              <h2 class="h5 mb-0 text-uppercase">Master in Computer Science</h2>
-              <p class="text-sm mb-0">Széchenyi István University</p><span class="small text-muted">Hungary</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">Pursuing advanced topics such as machine learning, artificial intelligence, cloud
-                computing, and software testing. Developing skills in data analysis, project management, and research
-                methodology.</p>
-            </div>
-          </div>
-        </li>
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2019 - 2023 (dropped) </p>
-              <h2 class="h5 mb-0 text-uppercase">Master in Telecommunication Engineering</h2>
-              <p class="text-sm mb-0">Al-Baath University</p><span class="small text-muted">Syria</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">Worked on a thesis focusing on 3D Beamforming in advanced telecommunication
-                networks.</p>
-            </div>
-          </div>
-        </li>
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2014 - 2019 </p>
-              <h2 class="h5 mb-0 text-uppercase">Telecommunication Engineering</h2>
-              <p class="text-sm mb-0">Aleppo University</p><span class="small text-muted">Syria</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">Graduated with a final grade of 87.11. Specialized in signal processing, digital
-                communication, and networking systems, with projects focusing on antenna design, network security, and
-                5G technologies.</p>
-            </div>
-          </div>
-        </li>
+        <!-- Education items -->
       </ul>
+      <button type="button" class="btn btn-primary" id="showTranscript">Show Transcript</button>
+      <div id="transcript" style="display:none;">
+        <img src="img/transcripts/transcript1.jpg" alt="Transcript 1" style="width:100%; max-width:600px;">
+        <img src="img/transcripts/transcript2.jpg" alt="Transcript 2" style="width:100%; max-width:600px;">
+      </div>
     </div>
   </section>
-  <!-- Experience Section        -->
-  <section class="py-5" id="experience">
+
+  <!-- Volunteering Section -->
+  <section class="py-5" id="volunteering">
     <div class="container py-5">
       <header class="mb-5 pb-4">
-        <p class="fw-bold text-primary text-uppercase letter-spacing-3"></p>
-        <h2 class="text-uppercase lined">Experience</h2>
+        <h2 class="text-uppercase lined">Volunteering</h2>
       </header>
-      <!--  Timeline -->
       <ul class="timeline">
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2024 - now </p>
-              <h2 class="h5 mb-0 text-uppercase">Siciliamia</h2>
-              <p class="text-sm mb-0">Web Developer (Backend/intern)</p><span class="small text-muted">Italy</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">
-              <ul>
-                <li>Developed backend components using PHP and MySQL.</li>
-                <li>Collaborated with front-end developers to integrate user-facing elements with server-side logic.
-                </li>
-                <li>Assisted in code reviews and implemented software engineering best practices.</li>
-              </ul>
-              </p>
-            </div>
-          </div>
-        </li>
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2021 – 2023 </p>
-              <h2 class="h5 mb-0 text-uppercase">Al-Baath University</h2>
-              <p class="text-sm mb-0">University Lecturer/Engineer</p><span class="small text-muted">Syria</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">
-              <ul>
-                <li>Instructed Digital Communication Laboratory courses and supervised senior student projects.</li>
-                <li>Developed curriculum modules on advanced communication technologies and project management.</li>
-                <li>Provided technical support and research mentorship to students.</li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <!-- Timeline item-->
-        <li class="timeline-item ms-3 pb-4">
-          <div class="timeline-arrow"></div>
-          <div class="row gx-0 gy-4">
-            <div class="col-lg-5">
-              <p class="fw-bold mb-2 text-primary text-sm">2020 - 2023 </p>
-              <h2 class="h5 mb-0 text-uppercase">Ward Commercial Company</h2>
-              <p class="text-sm mb-0">Transportation Warehouse Manager</p><span class="small text-muted">Syria</span>
-            </div>
-            <div class="col-lg-7">
-              <p class="text-muted">
-              <ul>
-                <li>Managed warehouse and transportation logistics, ensuring timely delivery and efficient operations.
-                </li>
-                <li>Led a team of staff, optimized supply chain processes, and managed client relationships.</li>
-                <li>Oversaw billing and documentation processes.</li>
-              </ul>
-              </p>
-            </div>
-          </div>
-        </li>
+        <!-- Volunteering experience -->
       </ul>
+      <button type="button" class="btn btn-primary" id="showCertificates">Show Certificates</button>
+      <div id="certificates" style="display:none;">
+        <img src="img/certificates/certificate1.jpg" alt="Certificate 1" style="width:100%; max-width:600px;">
+        <img src="img/certificates/certificate2.jpg" alt="Certificate 2" style="width:100%; max-width:600px;">
+      </div>
     </div>
   </section>
+
+  <!-- Skills Section -->
+  <section class="py-5 bg-light" id="skills">
+    <div class="container py-5">
+      <header class="mb-5">
+        <h2 class="text-uppercase lined">Skills</h2>
+      </header>
+      <p class="lead text-muted">Technical skills: Python, C/C++, MATLAB, Docker, MySQL, etc.</p>
+    </div>
+  </section>
+
+  <!-- Hobbies Section -->
+  <section class="py-5" id="hobbies">
+    <div class="container py-5">
+      <header class="mb-5 pb-4">
+        <h2 class="text-uppercase lined">Hobbies</h2>
+      </header>
+      <p class="lead text-muted">Football, Basketball, Karate</p>
+    </div>
+  </section>
+
+  <!-- Download CV button -->
+  <section class="py-5" id="download">
+    <div class="container py-5">
+      <button type="button" class="btn btn-success" id="downloadCV">Download CV.pdf</button>
+    </div>
+  </section>
+
   <!-- Contact Section -->
   <section class="bg-light py-5" id="contact">
     <div class="container py-5">
       <header class="mb-5 pb-4">
-        <p class="fw-bold text-primary text-uppercase letter-spacing-3">Call me,</p>
         <h2 class="text-uppercase lined">Contact</h2>
       </header>
       <div class="row gy-4">
-        <div class="col-lg-3 col-md-6"><a class="px-4 py-5 text-center contact-item shadow-sm reset-anchor d-block"
-            href="https://www.google.com/maps/place/Gy%C5%91r,+Egyetem+t%C3%A9r+1,+9026/"><i
-              class="fas fa-map-marker-alt fa-2x mb-4"></i>
-            <h4 class="contact-item-title h5 text-uppercase">Location</h4>
-            <p class="text-sm mb-0">Egyetem tér 1, 9026 Győr (Hungary)</p>
-          </a></div>
-        <div class="col-lg-3 col-md-6"><a class="px-4 py-5 text-center contact-item shadow-sm reset-anchor d-block"
-            href="tel:+36-20-574-2322"><i class="fas fa-map-marker-alt fa-2x mb-4"></i>
-            <h4 class="contact-item-title h5 text-uppercase">Phone</h4>
-            <p class="text-sm mb-0">+36-20-574-2322</p>
-          </a></div>
-        <div class="col-lg-3 col-md-6"><a class="px-4 py-5 text-center contact-item shadow-sm reset-anchor d-block"
-            href="https://github.com/ThaerAlkassab"><i class="fas fa-map-marker-alt fa-2x mb-4"></i>
-            <h4 class="contact-item-title h5 text-uppercase">Website</h4>
-            <p class="text-sm mb-0">https://github.com/ThaerAlkassab</p>
-          </a></div>
-        <div class="col-lg-3 col-md-6"><a class="px-4 py-5 text-center contact-item shadow-sm reset-anchor d-block"
-            href="mailto:thaeralkassab1996@gmail.com"><i class="fas fa-map-marker-alt fa-2x mb-4"></i>
-            <h4 class="contact-item-title h5 text-uppercase">Email</h4>
-            <p class="text-sm mb-0">thaeralkassab1996@gmail.com</p>
-          </a></div>
+        <!-- Contact details -->
       </div>
     </div>
   </section>
-  <!-- JavaScript files-->
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   <script src="js/front.js"></script>
-  <!-- FontAwesome CSS -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="vendor/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
